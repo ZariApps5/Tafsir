@@ -77,6 +77,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <!-- Bookmark indicator (top-right corner, hidden unless bookmarked) -->
+        <ImageView
+            android:id="@+id/ivBookmark"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_bookmark_filled"
+            android:visibility="gone"
+            android:contentDescription="Bookmarked"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/accent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

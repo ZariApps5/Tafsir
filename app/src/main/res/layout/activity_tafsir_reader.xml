@@ -28,7 +28,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!-- Loading indicator -->
+    <!-- Loading spinner -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -37,18 +37,51 @@
         android:indeterminateTint="@color/accent"
         android:visibility="gone" />
 
-    <!-- Page indicator at bottom -->
+    <!-- Page indicator pill -->
     <TextView
         android:id="@+id/tvPageIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:background="#88000000"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="4dp"
+        android:layout_marginBottom="72dp"
+        android:background="#99000000"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="5dp"
         android:textColor="@android:color/white"
         android:textSize="12sp"
-        android:text="Page 1 / —" />
+        android:text="Page — / —" />
+
+    <!-- Zoom controls (bottom-right) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:elevation="4dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabZoomIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="Zoom in"
+            android:src="@android:drawable/ic_menu_zoom"
+            app:backgroundTint="@color/primary"
+            app:fabSize="mini"
+            app:tint="@android:color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabZoomOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Zoom out"
+            android:src="@android:drawable/ic_menu_zoom"
+            app:backgroundTint="@color/primary_light"
+            app:fabSize="mini"
+            app:tint="@android:color/white" />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

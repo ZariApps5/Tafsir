@@ -12,6 +12,7 @@ import com.tafsir.ibnkathir.data.SurahRepository
 import com.tafsir.ibnkathir.data.Volumes
 import com.tafsir.ibnkathir.databinding.ActivityMainBinding
 import com.tafsir.ibnkathir.ui.SurahAdapter
+import com.tafsir.ibnkathir.util.BookmarkManager
 import com.tafsir.ibnkathir.util.DownloadResult
 import com.tafsir.ibnkathir.util.PdfDownloadManager
 import kotlinx.coroutines.launch
@@ -21,6 +22,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: SurahAdapter
     private lateinit var downloadManager: PdfDownloadManager
+    private lateinit var bookmarkManager: BookmarkManager
+
+    // Track current query so onResume can refresh bookmark icons without losing search
+    private var currentQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,25 +34,44 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         downloadManager = PdfDownloadManager(this)
+        bookmarkManager = BookmarkManager(this)
 
         setupRecyclerView()
         setupSearch()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Refresh list so bookmark icons stay in sync after returning from reader
+        refreshList(currentQuery)
+    }
+
     private fun setupRecyclerView() {
         adapter = SurahAdapter { surah -> onSurahSelected(surah) }
         binding.recyclerView.adapter = adapter
-        adapter.submitList(SurahRepository.surahs)
+        refreshList("")
     }
 
     private fun setupSearch() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = false
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.submitList(SurahRepository.search(newText ?: ""))
+                currentQuery = newText ?: ""
+                refreshList(currentQuery)
                 return true
             }
         })
+    }
+
+    private fun refreshList(query: String) {
+        val bookmarked = bookmarkManager.allBookmarkedNumbers()
+        if (query.isBlank()) {
+            // Full list with volume headers
+            adapter.submitSurahsWithHeaders(SurahRepository.surahs, bookmarked)
+        } else {
+            // Flat search results, no headers
+            adapter.submitSurahs(SurahRepository.search(query), bookmarked)
+        }
     }
 
     /**
@@ -74,9 +98,7 @@ class MainActivity : AppCompatActivity() {
                 "${volumeInfo.title} (${volumeInfo.surahRange}).\n\n" +
                 "This may use 30–50 MB of data and storage."
             )
-            .setPositiveButton("Download") { _, _ ->
-                startDownload(surah)
-            }
+            .setPositiveButton("Download") { _, _ -> startDownload(surah) }
             .setNegativeButton("Cancel", null)
             .show()
     }
@@ -84,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     private fun startDownload(surah: Surah) {
         val volumeInfo = Volumes.forVolume(surah.volume) ?: return
 
-        // Show progress dialog
+        @Suppress("DEPRECATION")
         val progressDialog = android.app.ProgressDialog(this).apply {
             setTitle("Downloading ${volumeInfo.title}")
             setMessage("Please wait…")
@@ -102,22 +124,22 @@ class MainActivity : AppCompatActivity() {
             progressDialog.dismiss()
 
             when (result) {
-                is DownloadResult.Success, DownloadResult.AlreadyExists -> openReader(surah)
-                is DownloadResult.Error -> {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Download failed: ${result.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                is DownloadResult.Success,
+                DownloadResult.AlreadyExists -> openReader(surah)
+                is DownloadResult.Error -> Toast.makeText(
+                    this@MainActivity,
+                    "Download failed: ${result.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
 
     private fun openReader(surah: Surah) {
-        val intent = Intent(this, TafsirReaderActivity::class.java).apply {
-            putExtra(TafsirReaderActivity.EXTRA_SURAH_NUMBER, surah.number)
-        }
-        startActivity(intent)
+        startActivity(
+            Intent(this, TafsirReaderActivity::class.java).apply {
+                putExtra(TafsirReaderActivity.EXTRA_SURAH_NUMBER, surah.number)
+            }
+        )
     }
 }
