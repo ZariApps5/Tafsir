@@ -46,7 +46,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
 
     // PDF Viewer
-    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+    implementation 'com.github.barteksc:AndroidPdfViewer:3.2.0-beta.1'
 
     // Coroutines for async download
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
