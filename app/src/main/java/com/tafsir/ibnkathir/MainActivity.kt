@@ -2,6 +2,8 @@ package com.tafsir.ibnkathir
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -141,5 +143,20 @@ class MainActivity : AppCompatActivity() {
                 putExtra(TafsirReaderActivity.EXTRA_SURAH_NUMBER, surah.number)
             }
         )
+    }
+
+    // ── Toolbar menu ───────────────────────────────────────────────────────────
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_storage) {
+            startActivity(Intent(this, StorageManagerActivity::class.java))
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

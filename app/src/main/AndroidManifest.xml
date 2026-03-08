@@ -33,6 +33,11 @@
             android:label="@string/reader_title"
             android:configChanges="orientation|screenSize" />
 
+        <activity
+            android:name=".StorageManagerActivity"
+            android:exported="false"
+            android:label="Storage Manager" />
+
     </application>
 
 </manifest>
