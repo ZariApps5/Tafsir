@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1B5E20</color>        <!-- Deep Islamic green -->
+    <color name="primary_dark">#145214</color>
+    <color name="primary_light">#4C8C4A</color>
+    <color name="accent">#F9A825</color>          <!-- Gold accent -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="background">#FAFAFA</color>
+</resources>

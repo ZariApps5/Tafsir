@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginTop="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Surah number badge -->
+        <TextView
+            android:id="@+id/tvSurahNumber"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_surah_number"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- English name -->
+        <TextView
+            android:id="@+id/tvNameEnglish"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            app:layout_constraintStart_toEndOf="@id/tvSurahNumber"
+            app:layout_constraintEnd_toStartOf="@id/tvNameArabic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Meaning -->
+        <TextView
+            android:id="@+id/tvMeaning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintStart_toEndOf="@id/tvSurahNumber"
+            app:layout_constraintEnd_toStartOf="@id/tvNameArabic"
+            app:layout_constraintTop_toBottomOf="@id/tvNameEnglish" />
+
+        <!-- Volume chip -->
+        <TextView
+            android:id="@+id/tvVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textSize="11sp"
+            android:textColor="@color/accent"
+            app:layout_constraintStart_toEndOf="@id/tvSurahNumber"
+            app:layout_constraintTop_toBottomOf="@id/tvMeaning" />
+
+        <!-- Arabic name (right-aligned) -->
+        <TextView
+            android:id="@+id/tvNameArabic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/primary"
+            android:fontFamily="serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

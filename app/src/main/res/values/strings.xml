@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tafsir Ibn Kathir</string>
+    <string name="reader_title">Tafsir Reader</string>
+    <string name="search_hint">Search surah name or number…</string>
+</resources>
