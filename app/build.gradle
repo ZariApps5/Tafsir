@@ -45,7 +45,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
 
-    // PDF Viewer
+    // PDF Viewer - Corrected artifact ID to 'AndroidPdfViewer' (case-sensitive for JitPack)
     implementation 'com.github.barteksc:AndroidPdfViewer:3.2.0-beta.1'
 
     // Coroutines for async download
